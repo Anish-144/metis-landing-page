@@ -1,63 +1,79 @@
 import { motion } from 'framer-motion';
 
+const NAV_LINKS = {
+  Platform: ['QANAT — Underwriting', 'NETRA — Monitoring', 'Collections Intelligence', 'Integrations'],
+  Company: ['About Us', 'Client Outcomes', 'Blog', 'Careers'],
+  Legal: ['Privacy Policy', 'Terms of Service', 'Data Processing Agreement', 'Security'],
+};
+
 export default function Footer() {
   return (
-    <footer className="bg-base text-black pt-24 font-inter uppercase border-t border-gray-200 overflow-hidden relative">
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-24">
-          <div className="md:col-span-2">
-            <div className="w-10 h-10 rounded-full border-2 border-accent flex items-center justify-center mb-6 shadow-sm">
-              <div className="w-3 h-3 rounded-full bg-accent" />
+    <footer className="bg-white border-t border-black/[0.06] overflow-hidden relative">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16 pt-16 pb-8">
+
+        {/* Top row */}
+        <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr_1fr] gap-12 mb-16">
+
+          {/* Brand */}
+          <div>
+            <div className="flex items-center gap-2.5 mb-5">
+              <div className="w-8 h-8 rounded-full border-2 border-accent flex items-center justify-center">
+                <div className="w-2.5 h-2.5 rounded-full bg-accent" />
+              </div>
+              <span className="text-sm font-bold tracking-widest text-ink uppercase">Metis</span>
             </div>
-            <p className="text-xs font-medium tracking-widest text-slate-600 max-w-xs normal-case leading-relaxed">
-              METIS INTELLIGENCE. AUTOMATING DECISIONS. PREDICTING RISK. DRIVING GROWTH FOR FUTURE-READY LENDERS.
+            <p className="text-sm text-muted leading-relaxed max-w-xs mb-6">
+              Metis Intelligence. Automating decisions. Predicting risk. Driving growth for future-ready lenders.
             </p>
+            <a href="mailto:hello@metis.ai" className="text-sm font-medium text-ink hover:text-accent transition-colors">
+              hello@metis.ai
+            </a>
           </div>
 
-          <div>
-            <h4 className="text-[10px] font-bold tracking-widest text-accent mb-6">PLATFORM</h4>
-            <ul className="flex flex-col gap-4 text-xs font-semibold tracking-widest text-slate-600">
-              <li><a href="#products" className="hover:text-black transition-colors">QANAT (UNDERWRITING)</a></li>
-              <li><a href="#products" className="hover:text-black transition-colors">NETRA (MONITORING)</a></li>
-              <li><a href="#products" className="hover:text-black transition-colors">COLLECTIONS</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-[10px] font-bold tracking-widest text-accent mb-6">COMPANY</h4>
-            <ul className="flex flex-col gap-4 text-xs font-semibold tracking-widest text-slate-600">
-              <li><a href="#about" className="hover:text-black transition-colors">ABOUT US</a></li>
-              <li><a href="#case-studies" className="hover:text-black transition-colors">CLIENT OUTCOMES</a></li>
-              <li><a href="#contact" className="hover:text-black transition-colors">CONTACT</a></li>
-            </ul>
-          </div>
+          {/* Link columns */}
+          {Object.entries(NAV_LINKS).map(([category, links]) => (
+            <div key={category}>
+              <h4 className="text-[10px] font-bold tracking-widest text-accent uppercase mb-5">{category}</h4>
+              <ul className="flex flex-col gap-3">
+                {links.map(link => (
+                  <li key={link}>
+                    <a href="#" className="text-sm text-muted hover:text-ink transition-colors">
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className="border-t border-gray-200 py-8 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-bold tracking-widest text-black/50">
-          <div>© {new Date().getFullYear()} METIS INTELLIGENCE PVT LTD. ALL RIGHTS RESERVED.</div>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-black transition-colors">PRIVACY POLICY</a>
-            <a href="#" className="hover:text-black transition-colors">TERMS OF SERVICE</a>
+        {/* Bottom bar */}
+        <div className="border-t border-black/[0.06] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="text-xs text-muted">
+            © {new Date().getFullYear()} Metis Intelligence Pvt. Ltd. All rights reserved.
+          </div>
+          <div className="flex gap-3 flex-wrap justify-center">
+            {['RBI Compliant', 'SOC 2 Type II', 'ISO 27001'].map(b => (
+              <span key={b} className="px-2.5 py-1 rounded-full border border-black/[0.08] text-[10px] font-semibold text-muted">{b}</span>
+            ))}
           </div>
         </div>
       </div>
 
-      {/* Massive Marquee */}
-      <div className="relative border-t border-gray-200 bg-card overflow-hidden py-4 select-none">
+      {/* Marquee */}
+      <div className="border-t border-black/[0.06] bg-[#FAFAFA] overflow-hidden py-4 select-none">
         <motion.div
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          animate={{ x: ['0%', '-50%'] }}
+          transition={{ duration: 24, repeat: Infinity, ease: 'linear' }}
           className="flex whitespace-nowrap"
         >
-          {/* We render the text twice to create a seamless loop */}
-          <div className="flex gap-8 px-4 text-[clamp(4rem,10vw,8rem)] font-bold tracking-tighter text-transparent" style={{ WebkitTextStroke: '2px rgba(0,0,0,0.1)' }}>
-            <span>METIS — DECISION INTELLIGENCE — </span>
-            <span>METIS — DECISION INTELLIGENCE — </span>
-          </div>
-          <div className="flex gap-8 px-4 text-[clamp(4rem,10vw,8rem)] font-bold tracking-tighter text-transparent" style={{ WebkitTextStroke: '2px rgba(0,0,0,0.1)' }}>
-            <span>METIS — DECISION INTELLIGENCE — </span>
-            <span>METIS — DECISION INTELLIGENCE — </span>
-          </div>
+          {[1, 2].map(n => (
+            <div key={n} className="flex gap-8 px-4 text-[clamp(3rem,8vw,6rem)] font-bold tracking-tighter text-transparent"
+              style={{ WebkitTextStroke: '1.5px rgba(0,0,0,0.08)' }}>
+              <span>METIS — DECISION INTELLIGENCE — </span>
+              <span>METIS — DECISION INTELLIGENCE — </span>
+            </div>
+          ))}
         </motion.div>
       </div>
     </footer>

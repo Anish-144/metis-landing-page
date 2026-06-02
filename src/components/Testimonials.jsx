@@ -4,43 +4,49 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const TESTIMONIALS = [
   {
-    quote: "METIS HAS BEEN WITH US THROUGH THE CRITICAL MOMENTS OF OUR DIGITAL TRANSFORMATION. TOGETHER WE BUILT A DECISIONING ENGINE THAT REPLACED THREE LEGACY TOOLS. TAT DROPPED, ACCURACY IMPROVED, AND OUR CREDIT TEAM FINALLY HAD CONFIDENCE IN EVERY DECISION.",
-    name: "HEAD OF CREDIT RISK",
-    title: "LEADING NBFC"
+    quote: "Metis has been with us through the critical moments of our digital transformation. Together we built a decisioning engine that replaced three legacy tools. TAT dropped, accuracy improved, and our credit team finally had confidence in every decision.",
+    name: "Head of Credit Risk",
+    title: "Leading NBFC",
+    metric: "60% faster decisions",
   },
   {
-    quote: "WHAT SETS METIS APART IS HOW DEEPLY THEY UNDERSTAND THE INDIAN LENDING REALITY — THE GST QUIRKS, THE AA FRAMEWORK, THE MSME DATA GAPS. THEY DIDN'T JUST GIVE US A PRODUCT; THEY GAVE US INFRASTRUCTURE THAT ACTUALLY WORKS IN OUR CONTEXT.",
+    quote: "What sets Metis apart is how deeply they understand the Indian lending reality — the GST quirks, the AA framework, the MSME data gaps. They didn't just give us a product; they gave us infrastructure that actually works in our context.",
     name: "CTO",
-    title: "FINTECH LENDER"
+    title: "Fintech Lender",
+    metric: "4.2× accuracy improvement",
   },
   {
-    quote: "OUR COLLECTIONS TEAM WENT FROM REACTIVE CHAOS TO STRUCTURED PRIORITIZATION WITHIN WEEKS OF DEPLOYING METIS. THE PROPENSITY MODELS ARE REMARKABLY ACCURATE. WE'VE SEEN RECOVERY RATES DOUBLE ON PREVIOUSLY WRITTEN-OFF ACCOUNTS.",
-    name: "COLLECTIONS HEAD",
-    title: "REGIONAL BANK"
+    quote: "Our collections team went from reactive chaos to structured prioritization within weeks of deploying Metis. The propensity models are remarkably accurate. We've seen recovery rates double on previously written-off accounts.",
+    name: "Collections Head",
+    title: "Regional Bank",
+    metric: "2× recovery rate",
   },
   {
-    quote: "THE BEST PART OF THE COLLABORATION IS PEACE OF MIND: WE CAN TRUST THEIR EXPERTISE. THEY KNOW HOW TO REACH THE RIGHT BORROWERS WITH THE RIGHT DECISIONS — FAST. METIS HAS BECOME INFRASTRUCTURE WE CAN'T LIVE WITHOUT.",
-    name: "CHIEF RISK OFFICER",
-    title: "GOVERNMENT LENDER"
+    quote: "The best part of the collaboration is peace of mind: we can trust their expertise. They know how to reach the right borrowers with the right decisions — fast. Metis has become infrastructure we can't live without.",
+    name: "Chief Risk Officer",
+    title: "Government Lender",
+    metric: "28% NPA reduction",
   },
   {
-    quote: "METIS HELPED US MOVE FROM REACTIVE TO PROACTIVE RISK MANAGEMENT. WE DETECTED STRESS 60 DAYS BEFORE IT BECAME DELINQUENCY. THAT CHANGES EVERYTHING ABOUT HOW YOU RUN A PORTFOLIO.",
-    name: "RISK HEAD",
-    title: "MSME LENDER"
-  }
+    quote: "Metis helped us move from reactive to proactive risk management. We detected stress 60 days before it became delinquency. That changes everything about how you run a portfolio.",
+    name: "Risk Head",
+    title: "MSME Lender",
+    metric: "60-day early warning",
+  },
 ];
 
 export default function Testimonials() {
   const [current, setCurrent] = useState(0);
   const autoRef = useRef(null);
   const total = TESTIMONIALS.length;
+  const t = TESTIMONIALS[current];
 
   const next = () => setCurrent(c => (c + 1) % total);
   const prev = () => setCurrent(c => (c - 1 + total) % total);
 
   const startAuto = () => {
     clearInterval(autoRef.current);
-    autoRef.current = setInterval(next, 8000);
+    autoRef.current = setInterval(next, 7000);
   };
 
   useEffect(() => {
@@ -48,58 +54,80 @@ export default function Testimonials() {
     return () => clearInterval(autoRef.current);
   }, []);
 
-  const t = TESTIMONIALS[current];
-
   return (
-    <section id="testimonials" className="bg-base text-black py-24 md:py-32 font-inter uppercase border-t border-gray-200 overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12">
-        <div className="flex flex-wrap justify-between items-end mb-16 gap-4">
-          <div className="text-xs font-semibold tracking-widest text-accent">
-            <span className="text-black">{String(current + 1).padStart(2, '0')}</span> / {String(total).padStart(2, '0')}
+    <section id="testimonials" className="relative py-24 md:py-36 bg-white border-t border-black/[0.06] overflow-hidden">
+      <div className="absolute inset-0 aurora pointer-events-none" />
+
+      <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
+
+        {/* Header row */}
+        <div className="flex items-end justify-between mb-16 gap-4 flex-wrap">
+          <div>
+            <div className="section-label mb-4">Client Voices</div>
+            <h2 className="text-3xl md:text-4xl font-bold text-ink tracking-tighter">What our clients say.</h2>
           </div>
-          <div className="text-[10px] font-bold tracking-widest text-slate-500">WHAT OUR CLIENTS SAY</div>
-        </div>
-
-        <div className="min-h-[300px] flex flex-col justify-between">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={current}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="max-w-5xl"
+          <div className="flex gap-3">
+            <button
+              onClick={() => { prev(); startAuto(); }}
+              className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center hover:bg-ink hover:text-white hover:border-ink transition-all group"
             >
-              <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold tracking-wide leading-[1.2] mb-12 text-black">
-                "{t.quote}"
-              </h3>
-              <div className="flex items-center gap-6">
-                <div className="w-12 h-12 bg-white flex items-center justify-center border border-gray-200 shadow-[0_4px_15px_rgba(0,0,0,0.05)]">
-                  <div className="w-2 h-2 bg-accent rounded-full" />
-                </div>
-                <div>
-                  <div className="text-sm font-bold tracking-widest text-black">{t.name}</div>
-                  <div className="text-xs font-medium tracking-widest text-slate-500">{t.title}</div>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" strokeWidth={2} />
+            </button>
+            <button
+              onClick={() => { next(); startAuto(); }}
+              className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center hover:bg-ink hover:text-white hover:border-ink transition-all group"
+            >
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" strokeWidth={2} />
+            </button>
+          </div>
         </div>
 
-        {/* Controls */}
-        <div className="flex gap-4 mt-16 pt-8 border-t border-gray-200">
-          <button 
-            onClick={() => { prev(); startAuto(); }}
-            className="w-14 h-14 border border-gray-200 flex items-center justify-center hover:bg-black hover:text-white transition-colors group"
+        {/* Quote */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={current}
+            initial={{ opacity: 0, x: 24 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-4xl"
           >
-            <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" strokeWidth={2} />
-          </button>
-          <button 
-            onClick={() => { next(); startAuto(); }}
-            className="w-14 h-14 border border-gray-200 flex items-center justify-center hover:bg-black hover:text-white transition-colors group"
-          >
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" strokeWidth={2} />
-          </button>
+            {/* Metric badge */}
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/[0.08] border border-accent/20 text-xs font-semibold text-accent mb-6">
+              ↑ {t.metric}
+            </div>
+
+            <blockquote className="text-2xl sm:text-3xl md:text-4xl font-semibold text-ink leading-[1.3] tracking-tight mb-10">
+              "{t.quote}"
+            </blockquote>
+
+            {/* Attribution */}
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center border border-accent/20">
+                <div className="w-2 h-2 rounded-full bg-accent" />
+              </div>
+              <div>
+                <div className="text-sm font-bold text-ink">{t.name}</div>
+                <div className="text-xs text-muted">{t.title}</div>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Progress dots + counter */}
+        <div className="flex items-center gap-6 mt-12 pt-8 border-t border-black/[0.06]">
+          <div className="flex gap-2">
+            {TESTIMONIALS.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => { setCurrent(i); startAuto(); }}
+                className={`rounded-full transition-all duration-300 ${i === current ? 'w-6 h-2 bg-accent' : 'w-2 h-2 bg-black/15 hover:bg-black/30'}`}
+              />
+            ))}
+          </div>
+          <div className="text-xs font-semibold text-muted tabular-nums">
+            {String(current + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+          </div>
         </div>
       </div>
     </section>

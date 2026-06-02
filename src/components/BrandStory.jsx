@@ -54,8 +54,8 @@ export default function BrandStory() {
           <h2 className="text-4xl md:text-6xl font-semibold tracking-wide leading-[1.1] mb-10 text-black group-hover:text-accent transition-all">
             DOES YOUR LENDING <br /> HAVE DATA ISSUES?
           </h2>
-          <p className="text-sm md:text-base font-medium tracking-widest text-slate-600 max-w-xl mx-auto leading-relaxed mb-12 normal-case">
-            LENDERS THINK THEIR DATA ISN'T GOOD ENOUGH TO MAKE AUTOMATED DECISIONS. THAT MANUAL UNDERWRITING IS SAFER. WE BELIEVE IT'S SLOWER, RISKIER, AND A WASTE OF YOUR TEAM'S POTENTIAL.
+          <p className="text-sm md:text-base font-medium tracking-normal text-slate-600 max-w-xl mx-auto leading-relaxed mb-12">
+            Lenders think their data isn't good enough to make automated decisions. That manual underwriting is safer. We believe it's slower, riskier, and a waste of your team's potential.
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">

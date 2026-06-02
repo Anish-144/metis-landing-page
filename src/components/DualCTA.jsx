@@ -5,13 +5,13 @@ import BackgroundVideo from './BackgroundVideo.jsx';
 const CARDS = [
   {
     title: "WE'LL CONTACT YOU",
-    body: "WE AUDIT YOUR LENDING STACK AND CONTACT YOU WITH A PROPOSAL TAILORED TO YOUR PORTFOLIO.",
+    body: "We audit your lending stack and contact you with a proposal tailored to your portfolio.",
     cta: "SHARE YOUR CONTACT INFO",
     id: 'cta-card-contact',
   },
   {
     title: "CONTACT US",
-    body: "EMAIL OR CALL US TO START THE DISCUSSION RIGHT AWAY.",
+    body: "Email or call us to start the discussion right away.",
     cta: "CONTACT INFORMATION",
     id: 'cta-card-info',
   },
@@ -65,8 +65,8 @@ export default function DualCTA() {
               <h3 className="text-xl md:text-2xl font-semibold tracking-widest mb-6 relative z-10 text-black">
                 {card.title}
               </h3>
-              <p className="text-xs md:text-sm font-medium tracking-widest text-slate-600 leading-relaxed mb-12 normal-case relative z-10">
-                {card.body.toUpperCase()}
+              <p className="text-xs md:text-sm font-medium tracking-normal text-slate-600 leading-relaxed mb-12 relative z-10">
+                {card.body}
               </p>
               
               <div className="flex items-center gap-2 text-sm text-accent font-semibold tracking-widest relative z-10 transition-all">

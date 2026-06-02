@@ -1,87 +1,311 @@
-import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowUpRight, ChevronDown, FileText, Activity, TrendingUp } from 'lucide-react';
 
-const SERVICES = [
+/* ─────────────────────────────────────────
+   QANAT mini-animation: Statement Parser
+───────────────────────────────────────── */
+function QanatPreview() {
+  const lines = [
+    { label: 'Net Salary', val: '₹1,20,000', color: 'text-green-600' },
+    { label: 'EMI - Home', val: '-₹32,000', color: 'text-red-500' },
+    { label: 'UPI Credits', val: '₹48,200', color: 'text-green-600' },
+    { label: 'Cash Withdrawal', val: '-₹8,000', color: 'text-amber-600' },
+    { label: 'Avg Balance', val: '₹1,23,800', color: 'text-ink' },
+  ];
+  return (
+    <div className="relative overflow-hidden rounded-xl bg-[#F8F8FA] border border-black/[0.06] p-4 h-full">
+      {/* Scan line */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <motion.div
+          animate={{ y: ['0%', '100%'] }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: 'linear', repeatDelay: 0.5 }}
+          className="w-full h-0.5 bg-gradient-to-r from-transparent via-accent to-transparent opacity-50"
+        />
+      </div>
+      <div className="text-[9px] font-semibold tracking-widest text-muted uppercase mb-3">AI Extraction</div>
+      {lines.map((l, i) => (
+        <motion.div
+          key={l.label}
+          initial={{ opacity: 0, x: -8 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: i * 0.3, duration: 0.4, repeat: Infinity, repeatDelay: lines.length * 0.3 + 1 }}
+          className="flex justify-between py-1.5 border-b border-black/[0.04] last:border-0"
+        >
+          <span className="text-[10px] text-muted">{l.label}</span>
+          <span className={`text-[10px] font-semibold ${l.color}`}>{l.val}</span>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────
+   NETRA mini-animation: Risk graph
+───────────────────────────────────────── */
+function NetraPreview() {
+  const points = [10, 22, 18, 35, 28, 45, 38, 62, 55, 71, 65, 80];
+  const w = 240, h = 120;
+  const max = 100;
+  const pts = points.map((p, i) => `${(i / (points.length - 1)) * w},${h - (p / max) * h}`).join(' ');
+
+  return (
+    <div className="relative overflow-hidden rounded-xl bg-[#F8F8FA] border border-black/[0.06] p-4 h-full">
+      <div className="text-[9px] font-semibold tracking-widest text-muted uppercase mb-3">Risk Monitoring</div>
+      <svg viewBox={`0 0 ${w} ${h}`} className="w-full" style={{ height: 100 }}>
+        <defs>
+          <linearGradient id="risk-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#5E0ED7" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#5E0ED7" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <motion.polyline
+          points={pts}
+          fill="none"
+          stroke="#5E0ED7"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 2, ease: 'easeInOut', repeat: Infinity, repeatDelay: 1 }}
+        />
+        {points.map((p, i) => (
+          <motion.circle
+            key={i}
+            cx={(i / (points.length - 1)) * w}
+            cy={h - (p / max) * h}
+            r="3"
+            fill="#5E0ED7"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: (i / points.length) * 2, repeat: Infinity, repeatDelay: 3 - (i / points.length) * 2 }}
+          />
+        ))}
+      </svg>
+      <div className="flex gap-2 mt-2 flex-wrap">
+        {['EMI Stress', 'Cash Drop', 'Bureau Dip'].map((tag, i) => (
+          <motion.span
+            key={tag}
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.8 + i * 0.2, repeat: Infinity, repeatDelay: 3 - (0.8 + i * 0.2) }}
+            className="text-[9px] font-semibold px-2 py-0.5 rounded-full bg-red-50 text-red-600 border border-red-200"
+          >
+            ⚠ {tag}
+          </motion.span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────
+   Collections mini-animation: Priority queue
+───────────────────────────────────────── */
+function CollectionsPreview() {
+  const queue = [
+    { name: 'Ramesh K.', daysOverdue: 45, propensity: 82, action: 'Call Now' },
+    { name: 'Priya M.', daysOverdue: 22, propensity: 67, action: 'WhatsApp' },
+    { name: 'Suresh V.', daysOverdue: 90, propensity: 31, action: 'Legal' },
+  ];
+  return (
+    <div className="relative overflow-hidden rounded-xl bg-[#F8F8FA] border border-black/[0.06] p-4 h-full">
+      <div className="text-[9px] font-semibold tracking-widest text-muted uppercase mb-3">Recovery Queue</div>
+      <div className="space-y-2">
+        {queue.map((item, i) => (
+          <motion.div
+            key={item.name}
+            initial={{ opacity: 0, x: 12 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: i * 0.25, duration: 0.4, repeat: Infinity, repeatDelay: queue.length * 0.25 + 1 }}
+            className="flex items-center gap-2 p-2.5 bg-white rounded-lg border border-black/[0.06]"
+          >
+            <div className="w-6 h-6 rounded-full bg-accent/10 text-accent text-[9px] font-bold flex items-center justify-center shrink-0">
+              {i + 1}
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="text-[10px] font-semibold text-ink">{item.name}</div>
+              <div className="text-[9px] text-muted">{item.daysOverdue}d overdue</div>
+            </div>
+            <div className="text-right">
+              <div className="text-[9px] font-bold text-accent">{item.propensity}%</div>
+              <div className="text-[8px] text-muted">{item.action}</div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────
+   Module data
+───────────────────────────────────────── */
+const MODULES = [
   {
     num: '01',
-    title: 'QANAT — UNDERWRITING INTELLIGENCE',
-    sub: 'BETTER DATA MAKES BETTER DECISIONS',
+    id: 'qanat',
+    icon: FileText,
+    name: 'QANAT',
+    tagline: 'Underwriting Intelligence',
+    headline: 'Turn any document into a credit decision in minutes.',
     body: 'Automate underwriting with comprehensive financial and behavioral borrower data. Bank statements, GST, ITR, and alternate signals — all structured and scored automatically.',
-    cta: 'EXPLORE QANAT'
+    bullets: [
+      'Parses 200+ bank statement formats',
+      'OCR + LLM field extraction at 98.7% accuracy',
+      'GST ↔ Bank cross-validation built in',
+      'Alternate data signals: UPI, SMS, Bureau',
+    ],
+    preview: QanatPreview,
+    cta: 'Explore QANAT',
   },
   {
     num: '02',
-    title: 'NETRA — DYNAMIC RISK MONITORING',
-    sub: 'CONTINUOUS INTELLIGENCE, NOT PERIODIC REVIEWS',
+    id: 'netra',
+    icon: Activity,
+    name: 'NETRA',
+    tagline: 'Dynamic Risk Monitoring',
+    headline: 'Detect portfolio stress 60 days before it becomes an NPA.',
     body: 'Identify emerging portfolio risks through real-time monitoring of borrower behavior, repayment patterns, and financial stress signals — before delinquency occurs.',
-    cta: 'EXPLORE NETRA'
+    bullets: [
+      'Real-time behavioral signal monitoring',
+      '60-day early warning lead time',
+      'Dynamic risk re-scoring on new data',
+      'Integrates with CBS and LOS systems',
+    ],
+    preview: NetraPreview,
+    cta: 'Explore NETRA',
   },
   {
     num: '03',
-    title: 'COLLECTIONS INTELLIGENCE',
-    sub: 'PRIORITIZATION PROBLEM, NOT A VOLUME ONE',
+    id: 'collections',
+    icon: TrendingUp,
+    name: 'Collections Intelligence',
+    tagline: 'Recovery Optimization',
+    headline: 'From reactive chaos to structured, AI-led recovery.',
     body: 'Drive proactive collection strategies with AI-led borrower segmentation, repayment propensity models, and real-time account monitoring workflows.',
-    cta: 'EXPLORE COLLECTIONS'
-  }
+    bullets: [
+      'Repayment propensity scoring per borrower',
+      'AI-recommended action: call, SMS, or legal',
+      'Priority queue auto-sorted by recovery ROI',
+      '2× recovery rate on written-off accounts',
+    ],
+    preview: CollectionsPreview,
+    cta: 'Explore Collections',
+  },
 ];
 
 export default function Products() {
+  const [expanded, setExpanded] = useState(null);
+
   return (
-    <section id="products" className="bg-base text-black py-24 md:py-32 border-b border-gray-200 font-inter uppercase overflow-hidden">
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12">
-        
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-20"
-        >
-          <div className="text-xs font-semibold tracking-widest text-accent mb-4">OUR PLATFORM</div>
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-widest leading-tight max-w-3xl">
-            AI-POWERED WORKFLOWS FOR FUTURE-READY LENDERS
-          </h2>
-        </motion.div>
+    <section id="products" className="relative py-24 md:py-36 bg-white border-t border-black/[0.06] overflow-hidden">
+      <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
 
-        <div className="flex flex-col">
-          {SERVICES.map((s, i) => (
-            <motion.div
-              key={s.num}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 0.8, delay: i * 0.15, ease: [0.22, 1, 0.36, 1] }}
-              className="group grid grid-cols-1 md:grid-cols-[100px_1fr_300px] gap-8 md:gap-12 py-12 border-t border-gray-200 hover:border-accent transition-colors"
-            >
-              {/* Number */}
-              <div className="text-5xl md:text-7xl font-bold tracking-tighter text-black/10 group-hover:text-accent transition-all">
-                {s.num}
-              </div>
+      <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
 
-              {/* Content */}
-              <div className="flex flex-col justify-center">
-                <h3 className="text-2xl md:text-3xl font-semibold tracking-widest mb-3">{s.title}</h3>
-                <div className="text-xs font-bold tracking-widest text-slate-500 mb-6">{s.sub}</div>
-                <p className="text-sm font-medium tracking-widest text-slate-600 leading-relaxed max-w-2xl normal-case">
-                  {s.body.toUpperCase()}
-                </p>
-                
-                <a href="#contact" className="mt-8 flex items-center gap-2 text-sm text-accent font-semibold tracking-widest w-fit hover:opacity-80 transition-opacity">
-                  {s.cta} <ArrowUpRight className="w-4 h-4" strokeWidth={2.5} />
-                </a>
-              </div>
-
-              {/* Minimalist Graphic / Visual Placeholder */}
-              <div className="hidden md:flex items-center justify-center border border-gray-200 bg-white group-hover:border-accent transition-all relative overflow-hidden h-full min-h-[200px]">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="text-[10px] font-bold tracking-[0.2em] text-slate-400 group-hover:text-accent transition-colors">
-                  METIS_MODULE_{s.num}
-                </div>
-              </div>
-            </motion.div>
-          ))}
+        {/* Header */}
+        <div className="mb-16 md:mb-20">
+          <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="section-label mb-5">
+            Our Platform
+          </motion.div>
+          <motion.h2 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
+            transition={{ delay: 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-ink leading-tight tracking-tighter max-w-3xl">
+            Three modules. One complete lending intelligence platform.
+          </motion.h2>
         </div>
 
+        {/* Modules */}
+        <div className="flex flex-col gap-6">
+          {MODULES.map((mod, i) => {
+            const Icon = mod.icon;
+            const Preview = mod.preview;
+            const isExpanded = expanded === mod.id;
+
+            return (
+              <motion.div
+                key={mod.id}
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10%' }}
+                transition={{ delay: i * 0.12, duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+                className="group rounded-2xl border border-black/[0.07] bg-white overflow-hidden transition-all duration-300 hover:border-accent/30 hover:shadow-card-hover"
+              >
+                {/* Main row */}
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-0">
+
+                  {/* Left: content */}
+                  <div className="p-7 md:p-10">
+                    <div className="flex items-start justify-between gap-4 mb-6">
+                      <div className="flex items-center gap-4">
+                        <div className="w-11 h-11 rounded-xl bg-accent/[0.08] border border-accent/15 flex items-center justify-center">
+                          <Icon className="w-5 h-5 text-accent" />
+                        </div>
+                        <div>
+                          <div className="text-[10px] font-bold tracking-widest text-muted uppercase">{mod.num} · {mod.tagline}</div>
+                          <div className="text-xl font-bold text-ink mt-0.5">{mod.name}</div>
+                        </div>
+                      </div>
+                      <span className="text-3xl font-bold text-black/[0.05] tracking-tighter hidden md:block">{mod.num}</span>
+                    </div>
+
+                    <h3 className="text-xl md:text-2xl font-semibold text-ink leading-snug tracking-tight mb-3 max-w-xl">
+                      {mod.headline}
+                    </h3>
+                    <p className="text-sm text-muted leading-relaxed mb-6 max-w-xl">{mod.body}</p>
+
+                    {/* Bullets — shown inline or in expanded */}
+                    <AnimatePresence>
+                      {isExpanded && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.35 }}
+                          className="overflow-hidden"
+                        >
+                          <ul className="space-y-2.5 mb-6">
+                            {mod.bullets.map(b => (
+                              <li key={b} className="flex items-start gap-2.5 text-sm text-muted">
+                                <span className="w-4 h-4 rounded-full bg-accent/10 flex items-center justify-center shrink-0 mt-0.5">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-accent" />
+                                </span>
+                                {b}
+                              </li>
+                            ))}
+                          </ul>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    <div className="flex items-center gap-4">
+                      <a href="#contact" className="flex items-center gap-1.5 text-sm text-accent font-semibold hover:opacity-80 transition-opacity group/link">
+                        {mod.cta}
+                        <ArrowUpRight className="w-4 h-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                      </a>
+                      <button
+                        onClick={() => setExpanded(isExpanded ? null : mod.id)}
+                        className="flex items-center gap-1.5 text-xs text-muted font-semibold hover:text-ink transition-colors"
+                      >
+                        {isExpanded ? 'Less detail' : 'More detail'}
+                        <motion.div animate={{ rotate: isExpanded ? 180 : 0 }} transition={{ duration: 0.25 }}>
+                          <ChevronDown className="w-3.5 h-3.5" />
+                        </motion.div>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Right: animated preview */}
+                  <div className="hidden lg:block border-l border-black/[0.06] bg-[#FAFAFA] p-6 group-hover:bg-white transition-colors">
+                    <Preview />
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

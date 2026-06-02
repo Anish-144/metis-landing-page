@@ -1,100 +1,139 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Mail, MapPin } from 'lucide-react';
+
+const inputClasses = "w-full bg-transparent border-b border-black/15 pb-4 text-sm font-medium text-ink focus:outline-none focus:border-accent transition-all placeholder:text-black/25";
+
+function Field({ label, htmlFor, children }) {
+  return (
+    <div>
+      <label htmlFor={htmlFor} className="block text-[10px] font-semibold tracking-widest text-muted uppercase mb-3">
+        {label}
+      </label>
+      {children}
+    </div>
+  );
+}
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name:'', email:'', message:'', updates:true });
+  const [form, setForm] = useState({ name: '', email: '', company: '', message: '', updates: true });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
-
-  const InputLabel = ({ htmlFor, children }) => (
-    <label htmlFor={htmlFor} className="block text-[10px] font-bold tracking-widest text-slate-500 mb-2 uppercase">
-      {children}
-    </label>
-  );
-
-  const inputClasses = "w-full bg-transparent border-b border-gray-300 pb-4 text-sm font-semibold tracking-widest text-black focus:outline-none focus:border-accent transition-all placeholder:text-gray-400";
+  const update = (k, v) => setForm(f => ({ ...f, [k]: v }));
 
   return (
-    <section id="contact" className="bg-base text-black py-24 md:py-32 font-inter uppercase relative">
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 grid grid-cols-1 lg:grid-cols-2 gap-20">
-        
-        {/* Left side Form */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <div className="text-xs font-semibold tracking-widest text-accent mb-8">CONTACT US</div>
-          
-          {submitted ? (
-            <div className="py-20">
-              <h2 className="text-3xl font-semibold tracking-widest mb-4 text-black">THANKS FOR REACHING OUT.</h2>
-              <p className="text-slate-600 tracking-widest">WE WILL BE IN TOUCH SHORTLY.</p>
+    <section id="contact" className="relative py-24 md:py-36 bg-white border-t border-black/[0.06] overflow-hidden">
+      <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />
+
+      <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+
+          {/* Left: form */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="section-label mb-6">Contact Us</div>
+            <h2 className="text-4xl md:text-5xl font-bold text-ink leading-tight tracking-tighter mb-8">
+              Let's talk about your lending stack.
+            </h2>
+
+            {submitted ? (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.97 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="py-16 text-center border border-green-200 rounded-2xl bg-green-50"
+              >
+                <div className="w-14 h-14 rounded-full bg-green-100 border border-green-300 flex items-center justify-center mx-auto mb-4 text-2xl">✓</div>
+                <h3 className="text-xl font-bold text-ink mb-2">Thanks for reaching out.</h3>
+                <p className="text-sm text-muted">Our team will be in touch within 24 hours.</p>
+              </motion.div>
+            ) : (
+              <form onSubmit={e => { e.preventDefault(); setSubmitted(true); }} className="flex flex-col gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                  <Field label="Your Name" htmlFor="name">
+                    <input id="name" required placeholder="Jane Doe" className={inputClasses}
+                      value={form.name} onChange={e => update('name', e.target.value)} />
+                  </Field>
+                  <Field label="Work Email" htmlFor="email">
+                    <input id="email" type="email" required placeholder="jane@company.com" className={inputClasses}
+                      value={form.email} onChange={e => update('email', e.target.value)} />
+                  </Field>
+                </div>
+                <Field label="Company / Institution" htmlFor="company">
+                  <input id="company" placeholder="HDFC Bank, Bajaj Finance, etc." className={inputClasses}
+                    value={form.company} onChange={e => update('company', e.target.value)} />
+                </Field>
+                <Field label="How can we help?" htmlFor="message">
+                  <textarea id="message" required placeholder="Tell us about your lending operations, team size, and goals…" rows={4}
+                    className={`${inputClasses} resize-none`}
+                    value={form.message} onChange={e => update('message', e.target.value)} />
+                </Field>
+
+                <div className="flex items-start gap-3">
+                  <input id="updates" type="checkbox" checked={form.updates}
+                    onChange={e => update('updates', e.target.checked)}
+                    className="mt-0.5 w-4 h-4 accent-accent cursor-pointer" />
+                  <label htmlFor="updates" className="text-xs text-muted leading-relaxed cursor-pointer">
+                    I agree to receive product updates and communications from Metis Intelligence.
+                  </label>
+                </div>
+
+                <button type="submit" className="btn-primary w-fit">
+                  Send Message <ArrowUpRight className="w-4 h-4" />
+                </button>
+              </form>
+            )}
+          </motion.div>
+
+          {/* Right: info */}
+          <motion.div
+            initial={{ opacity: 0, x: 24 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:pt-28"
+          >
+            <div className="space-y-8 mb-12">
+              <div className="flex gap-4">
+                <div className="w-10 h-10 rounded-xl bg-accent/[0.08] flex items-center justify-center shrink-0">
+                  <MapPin className="w-4 h-4 text-accent" />
+                </div>
+                <div>
+                  <div className="text-xs font-semibold tracking-widest text-muted uppercase mb-2">Headquarters</div>
+                  <p className="text-sm text-ink leading-relaxed">
+                    Metis Intelligence Pvt. Ltd.<br />
+                    Bandra Kurla Complex<br />
+                    Mumbai, Maharashtra 400051
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <div className="w-10 h-10 rounded-xl bg-accent/[0.08] flex items-center justify-center shrink-0">
+                  <Mail className="w-4 h-4 text-accent" />
+                </div>
+                <div>
+                  <div className="text-xs font-semibold tracking-widest text-muted uppercase mb-2">Email</div>
+                  <a href="mailto:hello@metis.ai" className="text-sm text-ink hover:text-accent transition-colors font-medium">
+                    hello@metis.ai
+                  </a>
+                </div>
+              </div>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-10">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div>
-                  <InputLabel htmlFor="name">NAME</InputLabel>
-                  <input id="name" required placeholder="JANE DOE" className={inputClasses} value={formData.name} onChange={e=>setFormData({...formData, name:e.target.value})} />
-                </div>
-                <div>
-                  <InputLabel htmlFor="email">EMAIL</InputLabel>
-                  <input id="email" type="email" required placeholder="JANE@COMPANY.COM" className={inputClasses} value={formData.email} onChange={e=>setFormData({...formData, email:e.target.value})} />
-                </div>
-              </div>
 
-              <div>
-                <InputLabel htmlFor="message">MESSAGE</InputLabel>
-                <textarea id="message" required placeholder="HOW CAN WE HELP?" rows={3} className={`${inputClasses} resize-none`} value={formData.message} onChange={e=>setFormData({...formData, message:e.target.value})} />
-              </div>
-
-              <div className="flex items-center gap-3">
-                <input id="updates" type="checkbox" checked={formData.updates} onChange={e=>setFormData({...formData, updates:e.target.checked})}
-                  className="w-4 h-4 bg-transparent border border-gray-300 rounded-none accent-accent cursor-pointer"
-                />
-                <label htmlFor="updates" className="text-[10px] font-semibold tracking-widest text-slate-500 cursor-pointer select-none">
-                  I AGREE TO RECEIVE COMMUNICATIONS FROM METIS
-                </label>
-              </div>
-
-              <button type="submit" className="w-fit flex items-center gap-2 text-sm text-accent font-semibold tracking-widest hover:opacity-80 transition-opacity mt-4 group">
-                SUBMIT <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" strokeWidth={2.5} />
-              </button>
-            </form>
-          )}
-        </motion.div>
-
-        {/* Right side decoration / info */}
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col justify-between border-l border-gray-200 pl-10 lg:pl-20"
-        >
-          <div>
-            <h3 className="text-xl font-semibold tracking-widest mb-6">MUMBAI HQ</h3>
-            <p className="text-xs tracking-widest text-slate-500 leading-loose normal-case">
-              METIS INTELLIGENCE PVT LTD.<br />
-              BANDRA KURLA COMPLEX<br />
-              MUMBAI, MAHARASHTRA 400051<br />
-              HELLO@METIS.AI
-            </p>
-          </div>
-
-          <div className="mt-20">
-            <div className="text-8xl text-black">DATA_</div>
-            <div className="text-8xl text-accent">DRIVEN.</div>
-          </div>
-        </motion.div>
-
+            {/* Accent quote */}
+            <div className="p-6 rounded-2xl bg-[#FAFAFA] border border-black/[0.07]">
+              <div className="text-4xl font-bold text-ink tracking-tighter leading-none">DATA_</div>
+              <div className="text-4xl font-bold text-accent tracking-tighter leading-none">DRIVEN.</div>
+              <p className="text-xs text-muted mt-4 leading-relaxed">
+                Every decision at Metis is grounded in data — including how we serve our clients.
+              </p>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

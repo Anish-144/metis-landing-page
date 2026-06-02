@@ -37,8 +37,8 @@ export default function QuoteStrip() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="pl-6 border-l-2 border-accent"
           >
-            <p className="text-sm sm:text-base font-semibold tracking-widest mb-4 leading-relaxed" style={{ color: '#000000' }}>
-              "METIS AUTOMATES THE DATA EXTRACTION AND RISK SCORING PROCESS, ALLOWING OUR CREDIT TEAM TO FOCUS ON EDGE CASES INSTEAD OF MANUAL DATA ENTRY."
+            <p className="text-sm sm:text-base font-medium tracking-normal mb-4 leading-relaxed normal-case" style={{ color: '#000000' }}>
+              "Metis automates the data extraction and risk scoring process, allowing our credit team to focus on edge cases instead of manual data entry."
             </p>
             <div className="text-xs font-bold tracking-widest text-accent uppercase">
               &mdash; CHIEF RISK OFFICER, TOP TIER NBFC
@@ -52,8 +52,8 @@ export default function QuoteStrip() {
             transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
             className="pl-6 border-l-2 border-accent"
           >
-            <p className="text-sm sm:text-base font-semibold tracking-widest mb-4 leading-relaxed" style={{ color: '#000000' }}>
-              "BY IMPLEMENTING NETRA, WE SAW A 28% REDUCTION IN DELINQUENCY RATES WITHIN THE FIRST QUARTER OF ROLLOUT."
+            <p className="text-sm sm:text-base font-medium tracking-normal mb-4 leading-relaxed normal-case" style={{ color: '#000000' }}>
+              "By implementing Netra, we saw a 28% reduction in delinquency rates within the first quarter of rollout."
             </p>
             <div className="text-xs font-bold tracking-widest text-accent uppercase">
               &mdash; VP OF CREDIT, MSME LENDING CORP
