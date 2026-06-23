@@ -6,19 +6,21 @@ import { AlertTriangle, Clock, Database, Zap, BarChart3, CheckCircle } from 'luc
    ACT 1 — Problem panel
 ───────────────────────────────────────── */
 const PROBLEMS = [
-  { icon: Clock, title: '12–21 Days TAT', body: 'Manual review of bank statements delays approvals, losing customers to faster lenders.', strike: true },
-  { icon: AlertTriangle, title: '34% NPA Rate', body: 'Incomplete data and subjective judgment lead to avoidable defaults across portfolios.', strike: true },
-  { icon: Database, title: 'Data Silos', body: 'GST, ITR, bank statements, and bureau data sit in disconnected systems — unusable.', strike: true },
+  { icon: Database, title: 'Fragmented Data', body: 'Customer data remains scattered across multiple systems and sources.', strike: true },
+  { icon: AlertTriangle, title: 'Static Risk', body: 'Risk models are built on outdated, static data rather than real-time borrower behavior.', strike: true },
+  { icon: Clock, title: 'Reactive Collections', body: 'Collections begin after delinquencies instead of through early risk prevention.', strike: true },
+  { icon: Zap, title: 'Fragmented Workflows', body: 'Most lenders operate on systems that provide point solutions.', strike: true },
 ];
 
 /* ─────────────────────────────────────────
    ACT 2 — AI pipeline panel
 ───────────────────────────────────────── */
 const PIPELINE = [
-  { id: 'ingest', label: 'Document Ingestion', detail: '500+ bank statement formats parsed automatically.', color: '#5E0ED7' },
-  { id: 'extract', label: 'AI Extraction', detail: 'Field-level OCR + LLM data structuring in seconds.', color: '#7c3aed' },
-  { id: 'reconcile', label: 'GST Reconciliation', detail: 'Cross-validate declared vs. actual transactions.', color: '#5E0ED7' },
-  { id: 'score', label: 'Risk Scoring', detail: 'Proprietary model with 200+ behavioral signals.', color: '#16a34a' },
+  { id: 'data', label: 'Borrower Data', detail: 'Automated extraction from diverse data sources.', color: '#5E0ED7' },
+  { id: 'intelligence', label: 'Intelligence', detail: 'AI structuring and reconciliation of financial behavior.', color: '#7c3aed' },
+  { id: 'decision', label: 'Decision', detail: 'Intelligent underwriting and scoring workflows.', color: '#5E0ED7' },
+  { id: 'monitoring', label: 'Monitoring', detail: 'Continuous evaluation of portfolio health.', color: '#16a34a' },
+  { id: 'action', label: 'Action', detail: 'Explainable recommendations for timely intervention.', color: '#5E0ED7' },
 ];
 
 /* ─────────────────────────────────────────
@@ -91,8 +93,8 @@ function PipelineStep({ id, label, detail, color, index, total }) {
       </motion.div>
 
       <div className="pt-1">
-        <div className="text-sm font-semibold text-ink">{label}</div>
-        <div className="text-xs text-muted mt-0.5">{detail}</div>
+        <div className="text-sm font-semibold text-white">{label}</div>
+        <div className="text-xs text-white/50 mt-0.5">{detail}</div>
       </div>
     </motion.div>
   );
@@ -154,21 +156,12 @@ export default function ScrollStory() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-10%' }}
                 transition={{ delay: 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-ink leading-[1.05] tracking-tighter mb-6"
+                className="text-4xl md:text-5xl lg:text-5xl font-bold text-ink leading-[1.05] tracking-tighter mb-6"
               >
-                Traditional<br />
-                underwriting<br />
-                is <span className="line-through text-red-400 decoration-red-400">broken.</span>
+                Lending Workflows<br />
+                Were Never Built for<br />
+                <span className="line-through text-red-400 decoration-red-400">Real-Time Intelligence.</span>
               </motion.h2>
-              <motion.p
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.25, duration: 0.6 }}
-                className="text-base text-muted leading-relaxed max-w-md"
-              >
-                India's lenders lose billions to avoidable defaults and missed opportunities — all because underwriting hasn't caught up with technology.
-              </motion.p>
             </div>
 
             <div className="flex flex-col gap-4">
@@ -205,7 +198,7 @@ export default function ScrollStory() {
                 viewport={{ once: true }}
                 className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-accent uppercase mb-6"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-accent" /> The Solution
+                <span className="w-1.5 h-1.5 rounded-full bg-accent" /> The Metis Approach
               </motion.div>
               <motion.h2
                 initial={{ opacity: 0, y: 28 }}
@@ -214,18 +207,17 @@ export default function ScrollStory() {
                 transition={{ delay: 0.1, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.05] tracking-tighter mb-6"
               >
-                AI-Powered<br />
-                Underwriting<br />
-                <span className="gradient-text">at Scale.</span>
+                ONE PLATFORM<br />
+                <span className="gradient-text text-3xl md:text-4xl">THE COMPLETE CREDIT WORKFLOW</span>
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="text-base text-white/50 leading-relaxed max-w-md mb-8"
+                className="text-base text-white/50 leading-relaxed max-w-md mb-8 font-semibold tracking-wide"
               >
-                Metis ingests every document format, extracts structured data with AI, reconciles it against GST/ITR, and produces a confident credit decision — in under 90 seconds.
+                MOST VENDORS STOP AT DATA. METIS COMPLETES THE DECISION LOOP.
               </motion.p>
 
               {/* Speed stat */}

@@ -66,7 +66,7 @@ export default function FinalCTA() {
           className="inline-flex items-center gap-2 text-xs font-semibold tracking-widest text-accent uppercase mb-8"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-          The Future of Lending
+          Driving Measurable Outcomes
         </motion.div>
 
         {/* Headline */}
@@ -75,22 +75,29 @@ export default function FinalCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.0] tracking-tighter mb-8"
+          className="text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.0] tracking-tighter mb-12"
         >
-          Build the Future<br />
-          of <span className="gradient-text">Lending.</span>
+          Move from data<br />
+          to <span className="gradient-text">decisions.</span>
         </motion.h2>
 
-        {/* Subheadline */}
-        <motion.p
+        {/* Impact List */}
+        <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.25, duration: 0.7 }}
-          className="text-lg md:text-xl text-white/50 leading-relaxed mb-12 max-w-xl mx-auto font-normal"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto mb-14 text-left"
         >
-          Automate underwriting, monitor risk in real time, and scale credit decisions with confidence.
-        </motion.p>
+          {['Get all data in one-go, in one-place', 'Improve TAT for onboarding by 50%', 'Reduce Delinquencies by one-third', 'Improve Sales by 3x'].map((item, i) => (
+            <div key={i} className="flex items-center gap-3 p-4 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
+              <div className="w-6 h-6 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
+                <div className="w-1.5 h-1.5 rounded-full bg-accent" />
+              </div>
+              <span className="text-sm font-semibold text-white/80">{item}</span>
+            </div>
+          ))}
+        </motion.div>
 
         {/* CTAs */}
         <motion.div
@@ -101,13 +108,13 @@ export default function FinalCTA() {
           className="flex flex-wrap items-center justify-center gap-4 mb-14"
         >
           <a href="#contact" className="btn-primary px-8 py-4 text-sm">
-            Book a Demo <ArrowUpRight className="w-4 h-4" />
+            Book Demo <ArrowUpRight className="w-4 h-4" />
           </a>
           <a href="#contact"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/15 text-sm font-semibold text-white hover:border-white/40 hover:bg-white/5 transition-all duration-300"
           >
             <MessageCircle className="w-4 h-4" />
-            Talk to Experts
+            Talk to Team
           </a>
         </motion.div>
 

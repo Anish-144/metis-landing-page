@@ -7,9 +7,8 @@ import DataGlobe from './ui/DataGlobe.jsx';
 const NAV_LINKS = ['Platform', 'Case Studies', 'About', 'Contact'];
 
 const STATS = [
-  { num: '2.4M+', label: 'Documents Processed' },
-  { num: '₹48K Cr', label: 'Loan Value Analyzed' },
-  { num: '99.2%', label: 'Accuracy Rate' },
+  { num: 'Rs 2.8L Cr', label: 'in NPAs' },
+  { num: 'Rs 8.5L Cr', label: 'Credit Gap' },
 ];
 
 export default function PremiumHero() {
@@ -144,27 +143,28 @@ export default function PremiumHero() {
               <motion.div {...fadeUp(0.15)} className="w-fit">
                 <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/20 bg-accent/[0.06] text-xs font-semibold text-accent tracking-wide">
                   <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                  AI-Powered Lending Intelligence
+                  METIS
                 </span>
               </motion.div>
 
               {/* Headline */}
               <div className="overflow-hidden">
-                <motion.h1
+                <motion.div
                   initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-                  className="text-[clamp(2.8rem,6vw,5.5rem)] font-bold text-white leading-[1.0] tracking-tighter"
                 >
-                  The Intelligence<br />
-                  Layer for <span className="gradient-text">Modern</span><br />
-                  Lending.
-                </motion.h1>
+                  <p className="text-xl md:text-2xl text-accent font-semibold mb-2">2026</p>
+                  <h1 className="text-[clamp(2.3rem,4.5vw,4.2rem)] font-bold text-white leading-[1.1] tracking-tighter">
+                    A DECISIONING INFRASTRUCTURE FOR <span className="gradient-text">MODERN LENDERS</span>
+                  </h1>
+                </motion.div>
               </div>
 
               {/* Subheadline */}
-              <motion.p {...fadeUp(0.35)} className="text-base md:text-lg text-slate-400 leading-relaxed max-w-md font-normal">
-                Automate underwriting with AI, monitor portfolio risk in real time, and scale credit decisions with confidence — built for India's top lenders.
+              <motion.p {...fadeUp(0.35)} className="text-sm md:text-base text-slate-400 leading-relaxed max-w-xl font-normal">
+                The lending industry has never had more data. Or more models. Yet risk continues to rise. And deserving borrowers continue to be overlooked. Because lending doesn't need more data. It needs better intelligence. <br /><br />
+                Combining risk intelligence, decision automation, and portfolio monitoring into a single platform for the entire lending lifecycle. We're building the infrastructure to bridge the gap.
               </motion.p>
 
               {/* CTA row */}
@@ -176,7 +176,7 @@ export default function PremiumHero() {
                   <div className="w-7 h-7 rounded-full bg-white flex items-center justify-center">
                     <Play className="w-3 h-3 text-black fill-black" />
                   </div>
-                  Watch Platform Demo
+                  See How It Works
                 </a>
               </motion.div>
 
